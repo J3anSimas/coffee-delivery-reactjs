@@ -11,7 +11,9 @@ export default function Header(): JSX.Element {
   const [amountProducts, setAmountProducts] = useState(10)
   return (
     <HeaderContainer>
-      <img src={Logo} />
+      <NavLink to="/">
+        <img src={Logo} />
+      </NavLink>
       <NavHeader>
         <button>
           <MapPin size={22} weight="fill" />
