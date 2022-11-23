@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const HomeContainer = styled.main``
+export const HomeContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`
 
 export const IntroContainer = styled.header`
   display: flex;
@@ -59,8 +63,11 @@ export const IntroItem = styled.span`
   }
 `
 export const MainContainer = styled.main`
-  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   h2 {
+    font-size: 2rem;
     color: ${(props) => props.theme.gray800};
     font-family: 'Baloo 2', san-serif;
   }
