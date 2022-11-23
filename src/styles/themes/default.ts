@@ -7,16 +7,15 @@ export const defaultTheme = {
   purple500: '#8047F8',
   purple700: '#4B2995',
 
-  gray100: '#FAFAFA',
-  gray200: '#F3F2F2',
-  gray300: '#EDEDED',
-  gray400: '#E6E5E5',
-  gray500: '#D7D5D5',
-  gray600: '#8D8686',
-  gray700: '#574F4D',
-  gray800: '#403937',
-  gray900: '#272221',
+  background: '#FAFAFA',
+  baseCard: '#F3F2F2',
+  baseInput: '#EDEDED',
+  baseButton: '#E6E5E5',
+  baseHover: '#D7D5D5',
+  baseLabel: '#8D8686',
+  baseText: '#574F4D',
+  baseSubtitle: '#403937',
+  baseTitle: '#272221',
 
   white: '#FFFFFF'
-
 }
