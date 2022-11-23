@@ -22,12 +22,12 @@ export const IntroFirstColumn = styled.div`
     font-family: 'Baloo 2', sans-serif;
     font-size: 3rem;
     line-height: 1.3;
-    color: ${(props) => props.theme.gray900};
+    color: ${(props) => props.theme.baseTitle};
     margin-bottom: 1rem;
   }
   p {
     font-size: 1.25rem;
-    color: ${(props) => props.theme.gray800};
+    color: ${(props) => props.theme.baseSubtitle};
   }
 `
 
@@ -53,7 +53,7 @@ export const IntroItem = styled.span`
     background: ${(props) => props.theme.yellow700};
   }
   & .packageItem {
-    background: ${(props) => props.theme.gray700};
+    background: ${(props) => props.theme.baseText};
   }
   & .timerItem {
     background: ${(props) => props.theme.yellow500};
@@ -68,7 +68,7 @@ export const MainContainer = styled.main`
   gap: 3rem;
   h2 {
     font-size: 2rem;
-    color: ${(props) => props.theme.gray800};
+    color: ${(props) => props.theme.baseSubtitle};
     font-family: 'Baloo 2', san-serif;
   }
 `

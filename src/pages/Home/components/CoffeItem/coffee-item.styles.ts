@@ -8,7 +8,7 @@ export const CoffeItemContainer = styled.div`
   border-radius: 6px;
   border-top-right-radius: 36px;
   border-bottom-left-radius: 36px;
-  background: ${(props) => props.theme.gray200};
+  background: ${(props) => props.theme.baseCard};
   padding: 1.563rem;
   width: 256px;
   height: 19.375rem;
@@ -20,11 +20,11 @@ export const CoffeItemContainer = styled.div`
     font-family: 'Baloo 2', sans-serif;
     font-size: 1.25rem;
     line-height: 1.3;
-    color: ${(props) => props.theme.gray800};
+    color: ${(props) => props.theme.baseSubtitle};
   }
   p {
     font-size: 0.875rem;
-    color: ${(props) => props.theme.gray600};
+    color: ${(props) => props.theme.baseLabel};
   }
 `
 
@@ -56,7 +56,7 @@ export const PriceAndOrderContainer = styled.div`
 `
 
 export const Price = styled.span`
-  color: ${(props) => props.theme.gray700};
+  color: ${(props) => props.theme.baseText};
   & .label-price {
     font-size: 0.875rem;
   }
@@ -74,7 +74,7 @@ export const Order = styled.span`
     display: flex;
     align-items: center;
     border-radius: 6px;
-    background: ${(props) => props.theme.gray400};
+    background: ${(props) => props.theme.baseButton};
     height: 2.375rem;
     * {
       width: 1.5rem;
@@ -82,7 +82,7 @@ export const Order = styled.span`
       background: transparent;
     }
     span {
-      color: ${(props) => props.theme.gray900};
+      color: ${(props) => props.theme.baseTitle};
       font-size: 1rem;
     }
     button {

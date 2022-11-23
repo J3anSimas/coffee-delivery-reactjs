@@ -6,7 +6,9 @@ import {
   PriceAndOrderContainer
 } from './coffee-item.styles'
 import AmericanCoffee from '../../../../assets/coffees/Americano.png'
-import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import { ShoppingCartSimple } from 'phosphor-react'
+// eslint-disable-next-line max-len
+import AddOrRemoveItem from '../../../../components/AddOrRemoveItem/add-or-remove-item.component'
 export default function CoffeeItem(): JSX.Element {
   return (
     <CoffeItemContainer>
@@ -24,15 +26,7 @@ export default function CoffeeItem(): JSX.Element {
           <span className="price-value">9,90</span>
         </Price>
         <Order>
-          <span>
-            <button>
-              <Minus weight="bold" />
-            </button>
-            <span>1</span>
-            <button>
-              <Plus weight="bold" />
-            </button>
-          </span>
+          <AddOrRemoveItem />
           <button>
             <ShoppingCartSimple size={22} weight="fill" />
           </button>
