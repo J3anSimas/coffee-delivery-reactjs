@@ -2,15 +2,18 @@ import styled from 'styled-components'
 
 export const CheckoutContainer = styled.main`
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
 `
 
 export const CompleteOrderForm = styled.form`
+  border: 1px solid red;
   width: 40rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   & > div {
-    background: ${(props) => props.theme.gray200};
+    background: ${(props) => props.theme.baseCard};
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -21,12 +24,12 @@ export const CompleteOrderForm = styled.form`
     display: flex;
     gap: 0.5rem;
     h3 {
-      color: ${(props) => props.theme.gray800};
+      color: ${(props) => props.theme.baseSubtitle};
       font-weight: 400;
     }
     p {
       font-size: 0.875;
-      color: ${(props) => props.theme.gray700};
+      color: ${(props) => props.theme.baseText};
     }
 
     .container-description-map-pin {
@@ -93,8 +96,8 @@ export const InputFieldsContainer = styled.div`
     padding: 0 0.75rem;
     border-radius: 4px;
     border: none;
-    color: ${(props) => props.theme.gray700};
-    background: ${(props) => props.theme.gray300};
+    color: ${(props) => props.theme.baseText};
+    background: ${(props) => props.theme.baseInput};
 
     &:focus {
       outline: none;
@@ -102,18 +105,15 @@ export const InputFieldsContainer = styled.div`
     }
   }
 `
-type TPaymentTypeCardProps = {
-  selected?: boolean
-}
-export const PaymentTypeCard = styled.button<TPaymentTypeCardProps>`
+export const PaymentTypeCard = styled.button`
   padding: 1rem 0;
   flex: 1;
   font-size: 0.75rem;
   display: flex;
   justify-content: center;
   gap: 0.75rem;
-  background: ${(props) => props.theme.gray400};
-  color: ${(props) => props.theme.gray700};
+  background: ${(props) => props.theme.baseButton};
+  color: ${(props) => props.theme.baseText};
   border: none;
   border-radius: 6px;
   svg {
@@ -122,7 +122,7 @@ export const PaymentTypeCard = styled.button<TPaymentTypeCardProps>`
   cursor: pointer;
 
   &:hover {
-    background: ${(props) => props.theme.gray500};
+    background: ${(props) => props.theme.baseHover};
   }
 
   &:disabled {
@@ -131,4 +131,52 @@ export const PaymentTypeCard = styled.button<TPaymentTypeCardProps>`
   }
 `
 
-export const SelectedCoffee = styled.div``
+export const SelectedCoffeesAndConfirmContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  & > div {
+    background: ${(props) => props.theme.baseCard};
+    padding: 2.5rem;
+    display: flex;
+    border-radius: 6px;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  & .button-confirm-checkout {
+    background: ${(props) => props.theme.yellow500};
+    border: none;
+    color: ${(props) => props.theme.white};
+    padding: 0.75rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    &:hover {
+      background: ${(props) => props.theme.yellow700};
+    }
+  }
+`
+
+export const SelectedCoffeesList = styled.ul`
+  display: grid;
+  /* flex-direction: column; */
+  gap: 0.75rem;
+
+  & .line-divider {
+    border-top: 1px solid ${(props) => props.theme.baseButton};
+  }
+`
+export const CheckoutDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: ${(props) => props.theme.baseText};
+  & div {
+    display: flex;
+    justify-content: space-between;
+  }
+  & .total-description-checkout {
+    color: ${(props) => props.theme.baseSubtitle};
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+`

@@ -7,10 +7,14 @@ import {
 } from 'phosphor-react'
 import {
   CheckoutContainer,
+  CheckoutDescription,
   CompleteOrderForm,
   InputFieldsContainer,
-  PaymentTypeCard
+  PaymentTypeCard,
+  SelectedCoffeesAndConfirmContainer,
+  SelectedCoffeesList
 } from './checkout.styles'
+import CoffeeItem from './components/CoffeeItem/coffee-item.component'
 
 export default function Checkout(): JSX.Element {
   return (
@@ -64,6 +68,32 @@ export default function Checkout(): JSX.Element {
           </ul>
         </div>
       </CompleteOrderForm>
+      <SelectedCoffeesAndConfirmContainer>
+        <h2>Cafés selecionados</h2>
+        <div>
+          <SelectedCoffeesList>
+            <CoffeeItem />
+            <div className="line-divider"></div>
+            <CoffeeItem />
+            <div className="line-divider"></div>
+          </SelectedCoffeesList>
+          <CheckoutDescription>
+            <div>
+              <span>Total de itens</span>
+              <span>R$ 29,70</span>
+            </div>
+            <div>
+              <span>Entrega</span>
+              <span>R$ 3,50</span>
+            </div>
+            <div className="total-description-checkout">
+              <span>Total</span>
+              <span>R$ 33,20</span>
+            </div>
+          </CheckoutDescription>
+          <button className="button-confirm-checkout">CONFIRMAR PEDIDO</button>
+        </div>
+      </SelectedCoffeesAndConfirmContainer>
     </CheckoutContainer>
   )
 }
