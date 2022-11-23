@@ -7,6 +7,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
   height: 6.5rem;
   padding: 2rem 0;
+  margin-bottom: 2.5rem;
 `
 export const NavHeader = styled.nav`
   display: flex;
