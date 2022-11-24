@@ -7,12 +7,11 @@ export const CheckoutContainer = styled.main`
 `
 
 export const CompleteOrderForm = styled.form`
-  border: 1px solid red;
-  width: 40rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   & > div {
+    border-radius: 6px;
     background: ${(props) => props.theme.baseCard};
     padding: 2.5rem;
     display: flex;
@@ -47,6 +46,7 @@ export const CompleteOrderForm = styled.form`
 `
 
 export const InputFieldsContainer = styled.div`
+  min-width: 35rem;
   display: grid;
   grid-template-areas:
     'a . .'
@@ -141,10 +141,12 @@ export const SelectedCoffeesAndConfirmContainer = styled.div`
     display: flex;
     border-radius: 6px;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
   }
   & .button-confirm-checkout {
     background: ${(props) => props.theme.yellow500};
+    width: 100%;
     border: none;
     color: ${(props) => props.theme.white};
     padding: 0.75rem 0.5rem;
@@ -166,6 +168,7 @@ export const SelectedCoffeesList = styled.ul`
   }
 `
 export const CheckoutDescription = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
