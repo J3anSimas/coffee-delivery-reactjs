@@ -31,6 +31,8 @@ export const CoffeeItemContainer = styled.div`
       gap: 3px;
       color: ${(props) => props.theme.baseText};
       border-radius: 6px;
+      cursor: pointer;
+
       svg {
         color: ${(props) => props.theme.purple500};
       }
@@ -39,7 +41,21 @@ export const CoffeeItemContainer = styled.div`
         display: flex;
         align-items: center;
       }
+
+      &:hover {
+        color: ${(props) => props.theme.baseSubtitle};
+        background: ${(props) => props.theme.baseHover};
+      }
     }
     /* font-size: 18px; */
+  }
+  & span:nth-child(3) {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    color: ${(props) => props.theme.baseText};
+    font-size: 1rem;
+    font-weight: bold;
   }
 `
