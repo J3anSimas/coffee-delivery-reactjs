@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const HomeContainer = styled.main`
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 3rem;
 `
