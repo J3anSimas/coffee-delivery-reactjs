@@ -28,7 +28,7 @@ export const CoffeItemContainer = styled.div`
   }
 `
 
-export const CoffeeItemCategories = styled.ul`
+export const CoffeeItemTags = styled.ul`
   display: flex;
   gap: 5px;
   font-size: 0.625rem;
@@ -36,6 +36,7 @@ export const CoffeeItemCategories = styled.ul`
   color: ${(props) => props.theme.yellow700};
 
   & > span {
+    text-transform: uppercase;
     height: 1.313rem;
     max-height: 1.313rem;
     padding: 0 7px;
