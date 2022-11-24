@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 export const CheckoutContainer = styled.main`
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
+  gap: 2rem;
 `
 
 export const CompleteOrderForm = styled.form`
@@ -68,18 +69,6 @@ export const InputFieldsContainer = styled.div`
   & input:nth-child(4) {
     grid-area: d;
   }
-  & input:nth-child(4)::before {
-    content: '';
-    position: absolute;
-    background: red;
-    width: 10px;
-    height: 10px;
-    right: 8px;
-    top: 50%;
-    font-size: 15px;
-    transform: translateY(-50%);
-    color: #ccc;
-  }
   & input:nth-child(5) {
     grid-area: e;
   }
@@ -133,6 +122,7 @@ export const PaymentTypeCard = styled.button`
 
 export const SelectedCoffeesAndConfirmContainer = styled.div`
   display: flex;
+  max-width: 28rem;
   flex-direction: column;
   gap: 1rem;
   & > div {
