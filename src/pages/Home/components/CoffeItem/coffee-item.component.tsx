@@ -1,32 +1,52 @@
 import {
-  CoffeeItemCategories,
+  CoffeeItemTags,
   CoffeItemContainer,
   Order,
   Price,
   PriceAndOrderContainer
 } from './coffee-item.styles'
-import AmericanCoffee from '../../../../assets/coffees/Americano.png'
 import { ShoppingCartSimple } from 'phosphor-react'
 // eslint-disable-next-line max-len
 import AddOrRemoveItem from '../../../../components/AddOrRemoveItem/add-or-remove-item.component'
-export default function CoffeeItem(): JSX.Element {
+import { useState } from 'react'
+
+type TCoffeeItemProps = {
+  name: string
+  tags: string[]
+  description: string
+  cost: number
+  imageUrl: string
+}
+export default function CoffeeItem({
+  name,
+  tags,
+  description,
+  cost,
+  imageUrl
+}: TCoffeeItemProps): JSX.Element {
+  const [quantity, setQuantity] = useState(1)
+
   return (
     <CoffeItemContainer>
-      <img src={AmericanCoffee} alt="" />
-      <CoffeeItemCategories>
-        <span>ESPECIAL</span>
-        <span>GELADO</span>
-        <span>ALCOÓLICO</span>
-      </CoffeeItemCategories>
-      <h1>Café com Leite</h1>
-      <p>Bebida feita com chocolate dissolvido no leite quente e café</p>
+      <img src={`coffees/${imageUrl}`} alt="" />
+      <CoffeeItemTags>
+        {tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </CoffeeItemTags>
+      <h1>{name}</h1>
+      <p>{description}</p>
       <PriceAndOrderContainer>
         <Price>
-          <span className="label-price">R$</span>
-          <span className="price-value">9,90</span>
+          <span className="label-price">R$ </span>
+          <span className="price-value">{cost.toFixed(2)}</span>
         </Price>
         <Order>
-          <AddOrRemoveItem />
+          <AddOrRemoveItem
+            quantity={quantity}
+            minusFunc={() => setQuantity(quantity - 1)}
+            plusFunc={() => setQuantity(quantity + 1)}
+          />
           <button>
             <ShoppingCartSimple size={22} weight="fill" />
           </button>
