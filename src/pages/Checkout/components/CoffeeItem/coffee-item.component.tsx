@@ -1,5 +1,4 @@
 import { CoffeeItemContainer } from './coffee-item.styles'
-import AmericanCoffee from '../../../../assets/coffees/Americano.png'
 import { Trash } from 'phosphor-react'
 // eslint-disable-next-line max-len
 import AddOrRemoveItem from '../../../../components/AddOrRemoveItem/add-or-remove-item.component'
@@ -7,7 +6,7 @@ import AddOrRemoveItem from '../../../../components/AddOrRemoveItem/add-or-remov
 export default function CoffeeItem(): JSX.Element {
   return (
     <CoffeeItemContainer>
-      <img src={AmericanCoffee} alt="" />
+      <img src={`coffees/${'Americano.png'}`} alt="" />
       <span>
         <p>Expresso Tradicional</p>
         <span>
