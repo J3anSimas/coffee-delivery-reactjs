@@ -14,6 +14,7 @@ type TCartItemProps = {
 }
 export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
   const {
+    cartItems,
     getCartItemFromId,
     removeCartItemFromList,
     addCartItemQuantityByOne,
@@ -22,22 +23,24 @@ export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
   const { getCoffeeItemFromId } = useCoffeeItems()
   const [cartItem, setCartItem] = useState<TCartItem | undefined>()
   const [coffeeItem, setCoffeeItem] = useState<TCoffeeItem | undefined>()
+
   useEffect(() => {
     const tempCartItem = getCartItemFromId(cartId)
-    setCartItem(tempCartItem)
-    if (tempCartItem != null)
+    if (tempCartItem != null) {
+      setCartItem(tempCartItem)
       setCoffeeItem(getCoffeeItemFromId(tempCartItem.coffeeId))
-  }, [cartItem])
+    }
+  }, [cartItems])
 
   function handleRemoveCartItemFromList(): void {
     if (cartItem !== undefined) removeCartItemFromList(cartId)
   }
 
-  function onDecrease() {
+  function onDecrease(): void {
     subCartItemQuantityByOne(cartId)
   }
 
-  function onIncrease() {
+  function onIncrease(): void {
     addCartItemQuantityByOne(cartId)
   }
   return (
@@ -46,12 +49,12 @@ export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
         src={`coffees/${coffeeItem !== undefined ? coffeeItem?.imageUrl : ''}`}
         alt=""
       />
-      <span>
+      <span className="second-column-container">
         <p>{coffeeItem?.name}</p>
         <span>
           {cartItem != null ? (
             <AddOrRemoveItem
-              quantity={getCartItemFromId(cartId)?.quantity}
+              quantity={cartItem.quantity}
               onDecrease={onDecrease}
               onIncrease={onIncrease}
             />
@@ -66,7 +69,7 @@ export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
         </span>
       </span>
       <span>
-        <p>R$ {coffeeItem?.cost.toFixed(2).replace('.', ',')}</p>
+        <p>R$ {coffeeItem?.price.toFixed(2).replace('.', ',')}</p>
       </span>
     </CoffeeItemContainer>
   )
