@@ -98,11 +98,16 @@ export const Order = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${(props) => props.theme.white};
-    background: ${(props) => props.theme.purple500};
+    color: ${(props) => props.theme.baseCard};
+    background: ${(props) => props.theme.purple700};
     border: none;
     border-radius: 6px;
     height: 2.375rem;
     width: 2.375rem;
+    cursor: pointer;
+
+    &:hover {
+      background: ${(props) => props.theme.purple500};
+    }
   }
 `
