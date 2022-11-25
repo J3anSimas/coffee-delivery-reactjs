@@ -5,6 +5,8 @@ import {
   MapPinLine,
   Money
 } from 'phosphor-react'
+import { Navigate } from 'react-router-dom'
+import { useCart } from '../../contexts/cart.context'
 import {
   CheckoutContainer,
   CheckoutDescription,
@@ -14,9 +16,11 @@ import {
   SelectedCoffeesAndConfirmContainer,
   SelectedCoffeesList
 } from './checkout.styles'
-import CoffeeItem from './components/CoffeeItem/coffee-item.component'
+import CartItem from './components/CartItem/cart-item.component'
 
 export default function Checkout(): JSX.Element {
+  const { amountCartItems, cartItems } = useCart()
+  if (amountCartItems <= 0) return <Navigate to="/" />
   return (
     <CheckoutContainer>
       <CompleteOrderForm>
@@ -72,10 +76,12 @@ export default function Checkout(): JSX.Element {
         <h2>Cafés selecionados</h2>
         <div>
           <SelectedCoffeesList>
-            <CoffeeItem />
-            <div className="line-divider"></div>
-            <CoffeeItem />
-            <div className="line-divider"></div>
+            {cartItems.map(({ cartId }) => (
+              <>
+                <CartItem cartId={cartId} />
+                <div className="line-divider"></div>
+              </>
+            ))}
           </SelectedCoffeesList>
           <CheckoutDescription>
             <div>
