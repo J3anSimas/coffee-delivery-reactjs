@@ -11,13 +11,13 @@ export type TCoffeeItem = {
   name: string
   tags: string[]
   description: string
-  cost: number
+  price: number
   imageUrl: string
 }
 
 type TCoffeeItemContext = {
   coffeeItems: TCoffeeItem[]
-  getCoffeeItemFromId: (coffeeId: number) => TCoffeeItem
+  getCoffeeItemFromId: (coffeeId: number) => TCoffeeItem | undefined
 }
 
 export const CoffeeItemListContext = createContext<TCoffeeItemContext>(
