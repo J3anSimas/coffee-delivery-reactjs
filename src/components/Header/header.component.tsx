@@ -6,9 +6,10 @@ import {
 import Logo from '../../assets/Logo.png'
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/cart.context'
 export default function Header(): JSX.Element {
-  const [amountProducts, setAmountProducts] = useState(10)
+  const { amountCartItems } = useContext(CartContext)
   return (
     <HeaderContainer>
       <NavLink to="/">
@@ -19,9 +20,9 @@ export default function Header(): JSX.Element {
           <MapPin size={22} weight="fill" />
           Porto Alegre, RS
         </button>
-        <NavLink to="checkout">
-          {amountProducts > 0 ? (
-            <NumberProductsStatus>{amountProducts}</NumberProductsStatus>
+        <NavLink to={'checkout'}>
+          {amountCartItems > 0 ? (
+            <NumberProductsStatus>{amountCartItems}</NumberProductsStatus>
           ) : null}
           <ShoppingCart size={22} weight="fill" />
         </NavLink>
