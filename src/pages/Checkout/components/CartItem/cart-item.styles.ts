@@ -11,6 +11,12 @@ export const CoffeeItemContainer = styled.div`
     height: auto;
     margin-right: 1.25rem;
   }
+  .second-column-container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
   & span p {
     color: ${(props) => props.theme.baseSubtitle};
