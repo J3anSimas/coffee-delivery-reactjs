@@ -40,10 +40,26 @@ export function CartContextProvider({
     coffeeId: number
     quantity: number
   }): void {
-    setCartItems((state) => [
-      ...state,
-      { cartId: new Date().getTime().toString(), coffeeId, quantity }
-    ])
+    const cartItem = cartItems.find(
+      (cartItem) => cartItem.coffeeId === coffeeId
+    )
+
+    if (cartItem === undefined) {
+      setCartItems((state) => [
+        ...state,
+        { cartId: new Date().getTime().toString(), coffeeId, quantity }
+      ])
+    } else {
+      const newList = cartItems.map((cartItemFromOldList) => {
+        if (cartItemFromOldList.cartId === cartItem.cartId)
+          return {
+            ...cartItemFromOldList,
+            quantity: cartItemFromOldList.quantity + quantity
+          }
+        return cartItemFromOldList
+      })
+      setCartItems(newList)
+    }
     setAmountCartItems((state) => state + quantity)
   }
 
