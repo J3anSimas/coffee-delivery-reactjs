@@ -10,7 +10,6 @@ import { Navigate } from 'react-router-dom'
 import { useCart } from '../../contexts/cart.context'
 import {
   CheckoutContainer,
-  CheckoutDescription,
   CompleteOrderForm,
   InputFieldsContainer,
   PaymentTypeCard,
@@ -18,6 +17,8 @@ import {
   SelectedCoffeesList
 } from './checkout.styles'
 import CartItem from './components/CartItem/cart-item.component'
+// eslint-disable-next-line max-len
+import CheckoutDescription from './components/CheckoutDescription/checkout-description.component'
 
 export default function Checkout(): JSX.Element {
   const { amountCartItems, cartItems } = useCart()
@@ -84,20 +85,8 @@ export default function Checkout(): JSX.Element {
               </React.Fragment>
             ))}
           </SelectedCoffeesList>
-          <CheckoutDescription>
-            <div>
-              <span>Total de itens</span>
-              <span>R$ 29,70</span>
-            </div>
-            <div>
-              <span>Entrega</span>
-              <span>R$ 3,50</span>
-            </div>
-            <div className="total-description-checkout">
-              <span>Total</span>
-              <span>R$ 33,20</span>
-            </div>
-          </CheckoutDescription>
+          <CheckoutDescription />
+
           <button className="button-confirm-checkout">CONFIRMAR PEDIDO</button>
         </div>
       </SelectedCoffeesAndConfirmContainer>
