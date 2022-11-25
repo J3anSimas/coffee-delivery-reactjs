@@ -71,6 +71,8 @@ export function CartContextProvider({
   }
 
   function subCartItemQuantityByOne(cartId: string): void {
+    const cartItem = getCartItemFromId(cartId)
+    if (cartItem === undefined || cartItem.quantity <= 1) return
     const newList = cartItems.map((cartItem) => {
       if (cartItem.cartId === cartId) {
         return {
