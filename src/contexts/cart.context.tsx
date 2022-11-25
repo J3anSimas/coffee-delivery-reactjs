@@ -15,6 +15,8 @@ type TCartContext = {
     quantity: number
   }) => void
   removeCartItemFromList: (cartId: string) => void
+  addCartItemQuantityByOne: (cartId: string) => void
+  subCartItemQuantityByOne: (cartId: string) => void
   getCartItemFromId: (cartId: string) => TCartItem | undefined
   amountCartItems: number
 }
@@ -54,6 +56,33 @@ export function CartContextProvider({
     }
   }
 
+  function addCartItemQuantityByOne(cartId: string): void {
+    const newList = cartItems.map((cartItem) => {
+      if (cartItem.cartId === cartId) {
+        return {
+          ...cartItem,
+          quantity: cartItem.quantity + 1
+        }
+      }
+      return cartItem
+    })
+    setCartItems(newList)
+    setAmountCartItems((state) => state + 1)
+  }
+
+  function subCartItemQuantityByOne(cartId: string): void {
+    const newList = cartItems.map((cartItem) => {
+      if (cartItem.cartId === cartId) {
+        return {
+          ...cartItem,
+          quantity: cartItem.quantity - 1
+        }
+      }
+      return cartItem
+    })
+    setCartItems(newList)
+    setAmountCartItems((state) => state - 1)
+  }
   function getCartItemFromId(cartId: string): TCartItem | undefined {
     const cartItem = cartItems.find((cartT) => cartT.cartId === cartId)
     return cartItem
@@ -65,6 +94,8 @@ export function CartContextProvider({
         cartItems,
         addItemToCart,
         amountCartItems,
+        addCartItemQuantityByOne,
+        subCartItemQuantityByOne,
         getCartItemFromId,
         removeCartItemFromList
       }}
@@ -80,13 +111,17 @@ export function useCart(): TCartContext {
     amountCartItems,
     cartItems,
     getCartItemFromId,
-    removeCartItemFromList
+    removeCartItemFromList,
+    addCartItemQuantityByOne,
+    subCartItemQuantityByOne
   } = useContext(CartContext)
   return {
     cartItems,
     addItemToCart,
     amountCartItems,
     getCartItemFromId,
-    removeCartItemFromList
+    removeCartItemFromList,
+    addCartItemQuantityByOne,
+    subCartItemQuantityByOne
   }
 }
