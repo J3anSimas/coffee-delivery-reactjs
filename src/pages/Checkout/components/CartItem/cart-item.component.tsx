@@ -13,7 +13,12 @@ type TCartItemProps = {
   cartId: string
 }
 export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
-  const { getCartItemFromId, removeCartItemFromList } = useCart()
+  const {
+    getCartItemFromId,
+    removeCartItemFromList,
+    addCartItemQuantityByOne,
+    subCartItemQuantityByOne
+  } = useCart()
   const { getCoffeeItemFromId } = useCoffeeItems()
   const [cartItem, setCartItem] = useState<TCartItem | undefined>()
   const [coffeeItem, setCoffeeItem] = useState<TCoffeeItem | undefined>()
@@ -27,6 +32,14 @@ export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
   function handleRemoveCartItemFromList(): void {
     if (cartItem !== undefined) removeCartItemFromList(cartId)
   }
+
+  function onDecrease() {
+    subCartItemQuantityByOne(cartId)
+  }
+
+  function onIncrease() {
+    addCartItemQuantityByOne(cartId)
+  }
   return (
     <CoffeeItemContainer>
       <img
@@ -38,13 +51,9 @@ export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
         <span>
           {cartItem != null ? (
             <AddOrRemoveItem
-              quantity={cartItem.quantity}
-              onDecrease={() => {
-                const a = 5
-              }}
-              onIncrease={() => {
-                const a = 5
-              }}
+              quantity={getCartItemFromId(cartId)?.quantity}
+              onDecrease={onDecrease}
+              onIncrease={onIncrease}
             />
           ) : (
             <span>Loading</span>
