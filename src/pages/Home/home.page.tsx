@@ -10,28 +10,11 @@ import {
 } from './home.styles'
 import CoffeeIntroHomeImage from '../../assets/CoffeeIntroHome.png'
 import CoffeeItem from './components/CoffeItem/coffee-item.component'
-import { useEffect, useState } from 'react'
-
-type TCoffeeItem = {
-  id: number
-  name: string
-  tags: string[]
-  description: string
-  cost: number
-  imageUrl: string
-}
+import { useContext } from 'react'
+import { CoffeeItemListContext } from '../../contexts/coffee-items-list.context'
 
 export default function Home(): JSX.Element {
-  const [coffeeList, setCoffeeList] = useState<TCoffeeItem[]>([])
-  useEffect(() => {
-    async function fetchData(): Promise<void> {
-      const data = await fetch('/data/coffees.json')
-      setCoffeeList(await data.json())
-    }
-    fetchData()
-      .then()
-      .catch((e) => console.log(e))
-  }, [])
+  const { coffeeItems } = useContext(CoffeeItemListContext)
   return (
     <HomeContainer>
       <IntroContainer>
@@ -76,16 +59,19 @@ export default function Home(): JSX.Element {
       <MainContainer>
         <h2>Nossos cafés</h2>
         <CoffeeList>
-          {coffeeList.map(({ id, name, tags, description, imageUrl, cost }) => (
-            <CoffeeItem
-              key={id}
-              name={name}
-              tags={tags}
-              description={description}
-              imageUrl={imageUrl}
-              cost={cost}
-            />
-          ))}
+          {coffeeItems.map(
+            ({ id, name, tags, description, imageUrl, cost }) => (
+              <CoffeeItem
+                key={id}
+                id={id}
+                name={name}
+                tags={tags}
+                description={description}
+                imageUrl={imageUrl}
+                cost={cost}
+              />
+            )
+          )}
         </CoffeeList>
       </MainContainer>
     </HomeContainer>
