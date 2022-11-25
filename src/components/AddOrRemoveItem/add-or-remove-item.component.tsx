@@ -1,23 +1,31 @@
 import { Minus, Plus } from 'phosphor-react'
+import { useState } from 'react'
 import { AddOrRemoveItemContainer } from './add-or-remove-item.styles'
 
-type TAddOrRemoveItemProps = {
+type TAddOrRemoveProps = {
   quantity: number
-  minusFunc: () => void
-  plusFunc: () => void
+  onDecrease: () => void
+  onIncrease: () => void
 }
 export default function AddOrRemoveItem({
   quantity,
-  minusFunc,
-  plusFunc
-}: TAddOrRemoveItemProps): JSX.Element {
+  onDecrease,
+  onIncrease
+}: TAddOrRemoveProps): JSX.Element {
+  function handleDecreaseQuantity(): void {
+    onDecrease()
+  }
+
+  function handleIncreaseQuantity(): void {
+    onIncrease()
+  }
   return (
     <AddOrRemoveItemContainer>
-      <button onClick={minusFunc}>
+      <button onClick={handleDecreaseQuantity}>
         <Minus weight="bold" />
       </button>
       <span>{quantity}</span>
-      <button onClick={plusFunc}>
+      <button onClick={handleIncreaseQuantity}>
         <Plus weight="bold" />
       </button>
     </AddOrRemoveItemContainer>
