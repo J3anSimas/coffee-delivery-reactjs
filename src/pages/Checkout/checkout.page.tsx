@@ -5,6 +5,7 @@ import {
   MapPinLine,
   Money
 } from 'phosphor-react'
+import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { useCart } from '../../contexts/cart.context'
 import {
@@ -77,10 +78,10 @@ export default function Checkout(): JSX.Element {
         <div>
           <SelectedCoffeesList>
             {cartItems.map(({ cartId }) => (
-              <>
+              <React.Fragment key={cartId}>
                 <CartItem cartId={cartId} />
                 <div className="line-divider"></div>
-              </>
+              </React.Fragment>
             ))}
           </SelectedCoffeesList>
           <CheckoutDescription>

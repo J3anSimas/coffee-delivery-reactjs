@@ -25,7 +25,7 @@ export default function CartItem({ cartId }: TCartItemProps): JSX.Element {
   }, [cartItem])
 
   function handleRemoveCartItemFromList(): void {
-    removeCartItemFromList(cartId)
+    if (cartItem !== undefined) removeCartItemFromList(cartId)
   }
   return (
     <CoffeeItemContainer>

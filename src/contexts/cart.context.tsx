@@ -46,8 +46,12 @@ export function CartContextProvider({
   }
 
   function removeCartItemFromList(cartId: string): void {
-    const newList = cartItems.filter((cartItem) => cartItem.cartId !== cartId)
-    setCartItems(newList)
+    const cartItem = getCartItemFromId(cartId)
+    if (cartItem !== undefined) {
+      setAmountCartItems((state) => state - cartItem.quantity)
+      const newList = cartItems.filter((cartItem) => cartItem.cartId !== cartId)
+      setCartItems(newList)
+    }
   }
 
   function getCartItemFromId(cartId: string): TCartItem | undefined {
