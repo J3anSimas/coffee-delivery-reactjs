@@ -60,7 +60,7 @@ export default function Home(): JSX.Element {
         <h2>Nossos cafés</h2>
         <CoffeeList>
           {coffeeItems.map(
-            ({ id, name, tags, description, imageUrl, cost }) => (
+            ({ id, name, tags, description, imageUrl, price }) => (
               <CoffeeItem
                 key={id}
                 id={id}
@@ -68,7 +68,7 @@ export default function Home(): JSX.Element {
                 tags={tags}
                 description={description}
                 imageUrl={imageUrl}
-                cost={cost}
+                price={price}
               />
             )
           )}

@@ -16,7 +16,7 @@ type TCoffeeItemProps = {
   name: string
   tags: string[]
   description: string
-  cost: number
+  price: number
   imageUrl: string
 }
 export default function CoffeeItem({
@@ -24,7 +24,7 @@ export default function CoffeeItem({
   name,
   tags,
   description,
-  cost,
+  price,
   imageUrl
 }: TCoffeeItemProps): JSX.Element {
   const { addItemToCart } = useContext(CartContext)
@@ -55,7 +55,7 @@ export default function CoffeeItem({
         <Price>
           <span className="label-price">R$ </span>
           <span className="price-value">
-            {cost.toFixed(2).replace('.', ',')}
+            {price.toFixed(2).replace('.', ',')}
           </span>
         </Price>
         <Order>
