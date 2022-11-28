@@ -5,7 +5,10 @@ import {
   MapPinLine,
   Money
 } from 'phosphor-react'
-import React, { ButtonHTMLAttributes, ReactHTMLElement, useState } from 'react'
+import React, { useState } from 'react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
 import { useCart } from '../../contexts/cart.context'
 import {
@@ -22,9 +25,53 @@ import CheckoutDescription from './components/CheckoutDescription/checkout-descr
 
 type TPaymentMethod = undefined | 'creditCard' | 'debitCard' | 'money'
 
+const deliveryAdressFormValidationSchema = z.object({
+  cep: z.string().min(8).max(8),
+  street: z.string().min(3),
+  num: z.string().min(1),
+  complement: z.string().optional(),
+  district: z.string().min(1),
+  city: z.string().min(1),
+  uf: z.string().length(2)
+})
+
+type TDeliveryAddressFormData = z.infer<
+  typeof deliveryAdressFormValidationSchema
+>
+
 export default function Checkout(): JSX.Element {
   const { amountCartItems, cartItems } = useCart()
   const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>()
+
+  const deliveryAddressForm = useForm<TDeliveryAddressFormData>({
+    resolver: zodResolver(deliveryAdressFormValidationSchema),
+    defaultValues: {
+      cep: '',
+      city: '',
+      complement: '',
+      district: '',
+      num: '',
+      street: '',
+      uf: ''
+    }
+  })
+
+  const { handleSubmit, watch, reset } = deliveryAddressForm
+
+  const watchers = [
+    watch('cep'),
+    watch('city'),
+    watch('complement'),
+    watch('district'),
+    watch('num'),
+    watch('street'),
+    watch('uf')
+  ]
+
+  function isSubmitEnabled(): boolean {
+    const allWatchersAreFilled = !watchers.includes('')
+    return paymentMethod !== undefined && allWatchersAreFilled
+  }
   if (amountCartItems <= 0) return <Navigate to="/" />
 
   function handleSelectPaymentMethod(
