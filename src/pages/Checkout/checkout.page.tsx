@@ -5,7 +5,7 @@ import {
   MapPinLine,
   Money
 } from 'phosphor-react'
-import React from 'react'
+import React, { ButtonHTMLAttributes, ReactHTMLElement, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useCart } from '../../contexts/cart.context'
 import {
@@ -20,9 +20,18 @@ import CartItem from './components/CartItem/cart-item.component'
 // eslint-disable-next-line max-len
 import CheckoutDescription from './components/CheckoutDescription/checkout-description.component'
 
+type TPaymentMethod = undefined | 'creditCard' | 'debitCard' | 'money'
+
 export default function Checkout(): JSX.Element {
   const { amountCartItems, cartItems } = useCart()
+  const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>()
   if (amountCartItems <= 0) return <Navigate to="/" />
+
+  function handleSelectPaymentMethod(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void {
+    setPaymentMethod(e.currentTarget.name as TPaymentMethod)
+  }
   return (
     <CheckoutContainer>
       <CompleteOrderForm>
@@ -59,15 +68,30 @@ export default function Checkout(): JSX.Element {
             </span>
           </div>
           <ul>
-            <PaymentTypeCard disabled type="button">
+            <PaymentTypeCard
+              type="button"
+              name="creditCard"
+              disabled={paymentMethod === 'creditCard'}
+              onClick={(e) => handleSelectPaymentMethod(e)}
+            >
               <CreditCard size={16} />
               CARTÃO DE CRÉDITO
             </PaymentTypeCard>
-            <PaymentTypeCard type="button">
+            <PaymentTypeCard
+              type="button"
+              name="debitCard"
+              disabled={paymentMethod === 'debitCard'}
+              onClick={(e) => handleSelectPaymentMethod(e)}
+            >
               <Bank size={16} />
               CARTÃO DE DÉBITO
             </PaymentTypeCard>
-            <PaymentTypeCard type="button">
+            <PaymentTypeCard
+              type="button"
+              name="money"
+              disabled={paymentMethod === 'money'}
+              onClick={(e) => handleSelectPaymentMethod(e)}
+            >
               <Money size={16} />
               DINHEIRO
             </PaymentTypeCard>

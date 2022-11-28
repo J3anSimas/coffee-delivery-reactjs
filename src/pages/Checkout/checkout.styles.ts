@@ -94,7 +94,10 @@ export const InputFieldsContainer = styled.div`
     }
   }
 `
-export const PaymentTypeCard = styled.button`
+type TPaymentTypeCard = {
+  name: undefined | 'creditCard' | 'debitCard' | 'money'
+}
+export const PaymentTypeCard = styled.button<TPaymentTypeCard>`
   padding: 1rem 0;
   flex: 1;
   font-size: 0.75rem;
