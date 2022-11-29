@@ -5,6 +5,15 @@ export type TCartItem = {
   coffeeId: number
   quantity: number
 }
+type TDeliveryAddress = {
+  cep: string
+  city: string
+  complement?: string | undefined
+  district: string
+  num: string
+  street: string
+  uf: string
+}
 type TCartContext = {
   cartItems: TCartItem[]
   addItemToCart: ({
@@ -19,6 +28,10 @@ type TCartContext = {
   subCartItemQuantityByOne: (cartId: string) => void
   getCartItemFromId: (cartId: string) => TCartItem | undefined
   amountCartItems: number
+
+  deliveryAddress?: TDeliveryAddress
+
+  setNewDeliveryAddress: (data: TDeliveryAddress) => void
 }
 
 export const CartContext = createContext<TCartContext>({} as TCartContext)
@@ -32,7 +45,7 @@ export function CartContextProvider({
 }: TCartContextProviderProps): JSX.Element {
   const [cartItems, setCartItems] = useState<TCartItem[]>([])
   const [amountCartItems, setAmountCartItems] = useState(0)
-
+  const [deliveryAddress, setDeliveryAddress] = useState<TDeliveryAddress>()
   function addItemToCart({
     coffeeId,
     quantity
@@ -106,6 +119,10 @@ export function CartContextProvider({
     return cartItem
   }
 
+  function setNewDeliveryAddress(data: TDeliveryAddress): void {
+    setDeliveryAddress(data)
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -115,7 +132,8 @@ export function CartContextProvider({
         addCartItemQuantityByOne,
         subCartItemQuantityByOne,
         getCartItemFromId,
-        removeCartItemFromList
+        removeCartItemFromList,
+        setNewDeliveryAddress
       }}
     >
       {children}
@@ -131,7 +149,8 @@ export function useCart(): TCartContext {
     getCartItemFromId,
     removeCartItemFromList,
     addCartItemQuantityByOne,
-    subCartItemQuantityByOne
+    subCartItemQuantityByOne,
+    setNewDeliveryAddress
   } = useContext(CartContext)
   return {
     cartItems,
@@ -140,6 +159,7 @@ export function useCart(): TCartContext {
     getCartItemFromId,
     removeCartItemFromList,
     addCartItemQuantityByOne,
-    subCartItemQuantityByOne
+    subCartItemQuantityByOne,
+    setNewDeliveryAddress
   }
 }

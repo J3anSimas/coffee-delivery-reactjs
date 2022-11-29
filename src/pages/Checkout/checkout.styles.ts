@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const CheckoutContainer = styled.main`
+export const CheckoutContainer = styled.form`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 `
 
-export const CompleteOrderForm = styled.form`
+export const CompleteOrderForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -147,6 +147,9 @@ export const SelectedCoffeesAndConfirmContainer = styled.div`
     cursor: pointer;
     &:hover {
       background: ${(props) => props.theme.yellow700};
+    }
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 `

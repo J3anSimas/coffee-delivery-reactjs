@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useCart } from '../../contexts/cart.context'
 import {
   CheckoutContainer,
@@ -26,7 +26,7 @@ import CheckoutDescription from './components/CheckoutDescription/checkout-descr
 type TPaymentMethod = undefined | 'creditCard' | 'debitCard' | 'money'
 
 const deliveryAdressFormValidationSchema = z.object({
-  cep: z.string().min(8).max(8),
+  cep: z.string().length(8, 'The Cep input must have 8 chars'),
   street: z.string().min(3),
   num: z.string().min(1),
   complement: z.string().optional(),
@@ -40,9 +40,10 @@ type TDeliveryAddressFormData = z.infer<
 >
 
 export default function Checkout(): JSX.Element {
-  const { amountCartItems, cartItems } = useCart()
+  const { amountCartItems, cartItems, setNewDeliveryAddress } = useCart()
   const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>()
 
+  const navigate = useNavigate()
   const deliveryAddressForm = useForm<TDeliveryAddressFormData>({
     resolver: zodResolver(deliveryAdressFormValidationSchema),
     defaultValues: {
@@ -56,21 +57,20 @@ export default function Checkout(): JSX.Element {
     }
   })
 
-  const { handleSubmit, watch, reset } = deliveryAddressForm
+  const { handleSubmit, watch, reset, register } = deliveryAddressForm
 
   const watchers = [
     watch('cep'),
     watch('city'),
-    watch('complement'),
     watch('district'),
     watch('num'),
     watch('street'),
     watch('uf')
   ]
 
-  function isSubmitEnabled(): boolean {
+  function isSubmitDisabled(): boolean {
     const allWatchersAreFilled = !watchers.includes('')
-    return paymentMethod !== undefined && allWatchersAreFilled
+    return paymentMethod === undefined || !allWatchersAreFilled
   }
   if (amountCartItems <= 0) return <Navigate to="/" />
 
@@ -79,8 +79,13 @@ export default function Checkout(): JSX.Element {
   ): void {
     setPaymentMethod(e.currentTarget.name as TPaymentMethod)
   }
+
+  function handleConfirmCheckout(data: TDeliveryAddressFormData): void {
+    setNewDeliveryAddress(data)
+    navigate('success')
+  }
   return (
-    <CheckoutContainer>
+    <CheckoutContainer onSubmit={handleSubmit(handleConfirmCheckout)} action="">
       <CompleteOrderForm>
         <h2>Complete seu pedido</h2>
         <div>
@@ -92,13 +97,43 @@ export default function Checkout(): JSX.Element {
             </span>
           </div>
           <InputFieldsContainer>
-            <input type="text" placeholder="CEP" />
-            <input type="text" placeholder="Rua" />
-            <input type="text" placeholder="Número" />
-            <input type="text" placeholder="Complemento" />
-            <input type="text" placeholder="Bairro" />
-            <input type="text" placeholder="Cidade" />
-            <input type="text" placeholder="UF" />
+            <input
+              type="text"
+              placeholder="CEP"
+              id="cep"
+              {...register('cep')}
+            />
+            <input
+              type="text"
+              placeholder="Rua"
+              id="street"
+              {...register('street')}
+            />
+            <input
+              type="text"
+              placeholder="Número"
+              id="num"
+              {...register('num')}
+            />
+            <input
+              type="text"
+              placeholder="Complemento"
+              id="complement"
+              {...register('complement')}
+            />
+            <input
+              type="text"
+              placeholder="Bairro"
+              id="district"
+              {...register('district')}
+            />
+            <input
+              type="text"
+              placeholder="Cidade"
+              id="city"
+              {...register('city')}
+            />
+            <input type="text" placeholder="UF" id="uf" {...register('uf')} />
           </InputFieldsContainer>
         </div>
         <div>
@@ -158,7 +193,12 @@ export default function Checkout(): JSX.Element {
           </SelectedCoffeesList>
           <CheckoutDescription />
 
-          <button className="button-confirm-checkout">CONFIRMAR PEDIDO</button>
+          <button
+            className="button-confirm-checkout"
+            disabled={isSubmitDisabled()}
+          >
+            CONFIRMAR PEDIDO
+          </button>
         </div>
       </SelectedCoffeesAndConfirmContainer>
     </CheckoutContainer>

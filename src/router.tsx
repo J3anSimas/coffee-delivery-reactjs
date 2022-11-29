@@ -9,8 +9,10 @@ export default function Router(): JSX.Element {
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/success" element={<Success />} />
+        <Route path="/checkout">
+          <Route path="/checkout/" element={<Checkout />} />
+          <Route path="/checkout//success" element={<Success />} />
+        </Route>
       </Route>
     </Routes>
   )

@@ -6,7 +6,10 @@ import {
 } from './success.styles'
 import SuccessImage from '../../assets/SuccessImage.svg'
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
+import { useCart } from '../../contexts/cart.context'
 export default function Success(): JSX.Element {
+  const { deliveryAddress } = useCart()
+
   return (
     <SuccessContainer>
       <HeaderContainer>
@@ -22,9 +25,14 @@ export default function Success(): JSX.Element {
             <span>
               <p>
                 Entrega em{' '}
-                <span className="bold">Rua João Daniel Martinelli, 102</span>
+                <span className="bold">
+                  {deliveryAddress?.street}, {deliveryAddress?.num}
+                </span>
               </p>
-              <p>Farrapos - Porto Alegre, RS</p>
+              <p>
+                {deliveryAddress?.district} - {deliveryAddress?.city},{' '}
+                {deliveryAddress?.uf}
+              </p>
             </span>
           </div>
           <div className="info-item">
