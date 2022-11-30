@@ -11,8 +11,11 @@ export default function CheckoutDescription(): JSX.Element {
   const deliveryTax = 4.5
   useEffect(() => {
     const totalPrice = cartItems.reduce((sum, cartItem) => {
-      const coffeePrice = getCoffeeItemFromId(cartItem.coffeeId).price
-      return sum + coffeePrice * cartItem.quantity
+      const coffee = getCoffeeItemFromId(cartItem.coffeeId)
+      if (coffee === undefined) {
+        return 0
+      }
+      return sum + coffee.price * cartItem.quantity
     }, 0)
     setTotalCoffeesPrice(totalPrice)
   }, [cartItems])
