@@ -95,7 +95,7 @@ export const InputFieldsContainer = styled.div`
   }
 `
 type TPaymentTypeCard = {
-  name: undefined | 'creditCard' | 'debitCard' | 'money'
+  name: 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
 }
 export const PaymentTypeCard = styled.button<TPaymentTypeCard>`
   padding: 1rem 0;

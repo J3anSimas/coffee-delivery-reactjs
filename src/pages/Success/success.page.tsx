@@ -8,7 +8,7 @@ import SuccessImage from '../../assets/SuccessImage.svg'
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { useCart } from '../../contexts/cart.context'
 export default function Success(): JSX.Element {
-  const { deliveryAddress } = useCart()
+  const { deliveryAddress, paymentMethod } = useCart()
 
   return (
     <SuccessContainer>
@@ -50,7 +50,7 @@ export default function Success(): JSX.Element {
             </span>
             <span>
               <p>Pagamento na entrega</p>
-              <p className="bold">Cartão de Crédito</p>
+              <p className="bold">{paymentMethod}</p>
             </span>
           </div>
         </DeliveryAddressInfo>

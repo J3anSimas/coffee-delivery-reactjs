@@ -23,8 +23,6 @@ import CartItem from './components/CartItem/cart-item.component'
 // eslint-disable-next-line max-len
 import CheckoutDescription from './components/CheckoutDescription/checkout-description.component'
 
-type TPaymentMethod = undefined | 'creditCard' | 'debitCard' | 'money'
-
 const deliveryAdressFormValidationSchema = z.object({
   cep: z.string().length(8, 'The Cep input must have 8 chars'),
   street: z.string().min(3),
@@ -40,8 +38,13 @@ type TDeliveryAddressFormData = z.infer<
 >
 
 export default function Checkout(): JSX.Element {
-  const { amountCartItems, cartItems, setNewDeliveryAddress } = useCart()
-  const [paymentMethod, setPaymentMethod] = useState<TPaymentMethod>()
+  const {
+    amountCartItems,
+    cartItems,
+    setNewDeliveryAddress,
+    paymentMethod,
+    setPaymentMethodContext
+  } = useCart()
 
   const navigate = useNavigate()
   const deliveryAddressForm = useForm<TDeliveryAddressFormData>({
@@ -57,7 +60,7 @@ export default function Checkout(): JSX.Element {
     }
   })
 
-  const { handleSubmit, watch, reset, register } = deliveryAddressForm
+  const { handleSubmit, watch, register } = deliveryAddressForm
 
   const watchers = [
     watch('cep'),
@@ -77,10 +80,16 @@ export default function Checkout(): JSX.Element {
   function handleSelectPaymentMethod(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void {
-    setPaymentMethod(e.currentTarget.name as TPaymentMethod)
+    setPaymentMethodContext(
+      e.currentTarget.name as
+        | 'Cartão de Crédito'
+        | 'Cartão de Débito'
+        | 'Dinheiro'
+    )
   }
 
   function handleConfirmCheckout(data: TDeliveryAddressFormData): void {
+    // const { cep, city, district, num, street, uf, complement } = data
     setNewDeliveryAddress(data)
     navigate('success')
   }
@@ -152,8 +161,8 @@ export default function Checkout(): JSX.Element {
           <ul>
             <PaymentTypeCard
               type="button"
-              name="creditCard"
-              disabled={paymentMethod === 'creditCard'}
+              name="Cartão de Crédito"
+              disabled={paymentMethod === 'Cartão de Crédito'}
               onClick={(e) => handleSelectPaymentMethod(e)}
             >
               <CreditCard size={16} />
@@ -161,8 +170,8 @@ export default function Checkout(): JSX.Element {
             </PaymentTypeCard>
             <PaymentTypeCard
               type="button"
-              name="debitCard"
-              disabled={paymentMethod === 'debitCard'}
+              name="Cartão de Débito"
+              disabled={paymentMethod === 'Cartão de Débito'}
               onClick={(e) => handleSelectPaymentMethod(e)}
             >
               <Bank size={16} />
@@ -170,8 +179,8 @@ export default function Checkout(): JSX.Element {
             </PaymentTypeCard>
             <PaymentTypeCard
               type="button"
-              name="money"
-              disabled={paymentMethod === 'money'}
+              name="Dinheiro"
+              disabled={paymentMethod === 'Dinheiro'}
               onClick={(e) => handleSelectPaymentMethod(e)}
             >
               <Money size={16} />

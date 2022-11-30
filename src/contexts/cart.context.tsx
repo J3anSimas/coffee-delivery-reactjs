@@ -30,8 +30,15 @@ type TCartContext = {
   amountCartItems: number
 
   deliveryAddress?: TDeliveryAddress
-
   setNewDeliveryAddress: (data: TDeliveryAddress) => void
+  paymentMethod:
+    | undefined
+    | 'Cartão de Crédito'
+    | 'Cartão de Débito'
+    | 'Dinheiro'
+  setPaymentMethodContext: (
+    data: undefined | 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
+  ) => void
 }
 
 export const CartContext = createContext<TCartContext>({} as TCartContext)
@@ -46,6 +53,9 @@ export function CartContextProvider({
   const [cartItems, setCartItems] = useState<TCartItem[]>([])
   const [amountCartItems, setAmountCartItems] = useState(0)
   const [deliveryAddress, setDeliveryAddress] = useState<TDeliveryAddress>()
+  const [paymentMethod, setPaymentMethod] = useState<
+    undefined | 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
+  >()
   function addItemToCart({
     coffeeId,
     quantity
@@ -123,6 +133,11 @@ export function CartContextProvider({
     setDeliveryAddress(data)
   }
 
+  function setPaymentMethodContext(
+    data: undefined | 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro'
+  ): void {
+    setPaymentMethod(data)
+  }
   return (
     <CartContext.Provider
       value={{
@@ -133,7 +148,10 @@ export function CartContextProvider({
         subCartItemQuantityByOne,
         getCartItemFromId,
         removeCartItemFromList,
-        setNewDeliveryAddress
+        setNewDeliveryAddress,
+        deliveryAddress,
+        paymentMethod,
+        setPaymentMethodContext
       }}
     >
       {children}
@@ -150,7 +168,10 @@ export function useCart(): TCartContext {
     removeCartItemFromList,
     addCartItemQuantityByOne,
     subCartItemQuantityByOne,
-    setNewDeliveryAddress
+    setNewDeliveryAddress,
+    deliveryAddress,
+    paymentMethod,
+    setPaymentMethodContext
   } = useContext(CartContext)
   return {
     cartItems,
@@ -160,6 +181,9 @@ export function useCart(): TCartContext {
     removeCartItemFromList,
     addCartItemQuantityByOne,
     subCartItemQuantityByOne,
-    setNewDeliveryAddress
+    setNewDeliveryAddress,
+    deliveryAddress,
+    paymentMethod,
+    setPaymentMethodContext
   }
 }
